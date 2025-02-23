@@ -1,8 +1,39 @@
-fetch('https://open.oppomobile.com/bbs/search.php', {
-    method: 'PUT',
-    body: JSON.stringify({ key: 'value' }),
-    headers: {
-        'Content-Type': 'application/json',
-        'X-rewrite-url': '/bbs/hello.txt'
-    }
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch PUT Request</title>
+</head>
+<body>
+  <h1>Fetch PUT Request Example</h1>
+  <button id="sendRequest">Send PUT Request</button>
+  <pre id="response">Response will appear here...</pre>
+
+  <script>
+    document.getElementById("sendRequest").addEventListener("click", function() {
+      fetch('https://open.oppomobile.com/bbs/search.php', {
+        method: 'PUT',
+        body: JSON.stringify({ key: 'value' }),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-rewrite-url': '/custom/path'
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok: " + response.statusText);
+        }
+        return response.text();
+      })
+      .then(data => {
+        document.getElementById("response").textContent = "Response: " + data;
+      })
+      .catch(error => {
+        document.getElementById("response").textContent = "Error: " + error;
+      });
+    });
+  </script>
+</body>
+</html>
